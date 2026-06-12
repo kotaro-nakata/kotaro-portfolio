@@ -619,9 +619,9 @@ h3 {
 }
 
 .chapter-events {
-  list-style: none;
+  list-style: disc;
   margin: 0 0 8px;
-  padding: 6px 0 6px 14px;
+  padding: 6px 0 6px 22px;
   border-left: 2px solid var(--border);
 }
 
