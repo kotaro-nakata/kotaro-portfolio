@@ -100,6 +100,77 @@ setLang(savedLang || browserLang);
   });
 })();
 
+// ── Horizontal card sliders (Works / Projects) ─────────
+(function () {
+  document.querySelectorAll(".work-grid, .aside-grid").forEach((grid) => {
+    const cards = [...grid.children];
+    if (!cards.length) return;
+
+    // Build a dot per card
+    const dots = document.createElement("div");
+    dots.className = "slider-dots";
+    cards.forEach((_, i) => {
+      const b = document.createElement("button");
+      b.type = "button";
+      b.className = "sdot";
+      b.setAttribute("aria-label", `${i + 1}枚目へ`);
+      b.addEventListener("click", () =>
+        grid.scrollTo({ left: cards[i].offsetLeft, behavior: "smooth" })
+      );
+      dots.appendChild(b);
+    });
+    grid.after(dots);
+
+    const scrollable = () => grid.scrollWidth - grid.clientWidth > 4;
+
+    const update = () => {
+      const on = scrollable();
+      dots.hidden = !on;
+      grid.classList.toggle("is-scrollable", on);
+      if (!on) return;
+      let best = 0, bestDist = Infinity;
+      cards.forEach((c, i) => {
+        const d = Math.abs(c.offsetLeft - grid.scrollLeft);
+        if (d < bestDist) { bestDist = d; best = i; }
+      });
+      [...dots.children].forEach((d, i) => d.classList.toggle("active", i === best));
+    };
+
+    let raf = null;
+    grid.addEventListener("scroll", () => {
+      if (raf) return;
+      raf = requestAnimationFrame(() => { raf = null; update(); });
+    }, { passive: true });
+    window.addEventListener("resize", update);
+    update();
+
+    // Drag-to-scroll for mouse; touch/trackpad scroll natively.
+    // A real drag suppresses the card's click (so we don't open the modal).
+    let down = false, startX = 0, startScroll = 0, moved = false;
+    grid.addEventListener("pointerdown", (e) => {
+      if (e.pointerType !== "mouse" || !scrollable()) return;
+      down = true; moved = false;
+      startX = e.clientX; startScroll = grid.scrollLeft;
+      grid.classList.add("is-grabbing");
+    });
+    window.addEventListener("pointermove", (e) => {
+      if (!down) return;
+      const dx = e.clientX - startX;
+      if (Math.abs(dx) > 4) moved = true;
+      grid.scrollLeft = startScroll - dx;
+    });
+    window.addEventListener("pointerup", () => {
+      if (!down) return;
+      down = false;
+      grid.classList.remove("is-grabbing");
+      if (moved) {
+        grid.dataset.dragging = "1";
+        setTimeout(() => { grid.dataset.dragging = "0"; }, 0);
+      }
+    });
+  });
+})();
+
 // ── Modal ──────────────────────────────────────────────
 const modalOverlay  = document.getElementById("modal");
 const slideshow     = modalOverlay.querySelector(".modal-slideshow");
@@ -195,7 +266,10 @@ function closeModal() {
 }
 
 document.querySelectorAll(".work-card, .aside-item").forEach((card) => {
-  card.addEventListener("click", () => openModal(card));
+  card.addEventListener("click", () => {
+    if (card.closest(".work-grid, .aside-grid")?.dataset.dragging === "1") return;
+    openModal(card);
+  });
 });
 
 modalOverlay.addEventListener("click", (e) => {
