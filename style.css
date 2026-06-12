@@ -315,6 +315,7 @@ h3 {
   font-size: var(--fs-lead);
   font-weight: 600;
   line-height: 1.7;
+  white-space: pre-line;
 }
 
 .simple-heading {
