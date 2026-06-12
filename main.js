@@ -166,12 +166,124 @@ const detailBadge   = detailOverlay.querySelector(".detail-badge");
 const detailTitle   = detailOverlay.querySelector(".detail-title");
 const detailDesc    = detailOverlay.querySelector(".detail-desc");
 const detailChips   = detailOverlay.querySelector(".detail-chips");
+const detailArticle = detailOverlay.querySelector(".detail-article");
 const detailGallery = detailOverlay.querySelector(".detail-gallery");
 
-detailOpenBtn.addEventListener("click", () => {
-  if (!currentCard) return;
+function getActiveLang() {
+  return localStorage.getItem("lang") || "ja";
+}
 
-  const { period, badge, title, desc, chips } = getCardContent(currentCard);
+function escapeHtml(value) {
+  return value.replace(/[&<>"]/g, (char) => ({
+    "&": "&amp;",
+    "<": "&lt;",
+    ">": "&gt;",
+    "\"": "&quot;",
+  }[char]));
+}
+
+async function fetchArticleMarkdown(slug, lang) {
+  const candidates = [`articles/${slug}.${lang}.md`, `articles/${slug}.ja.md`];
+  for (const url of [...new Set(candidates)]) {
+    try {
+      const response = await fetch(url);
+      if (response.ok) return response.text();
+    } catch (error) {
+      // Keep the detail view usable even if an article file is missing locally.
+    }
+  }
+  return "";
+}
+
+
+function isSingleImageParagraph(paragraph) {
+  return paragraph.children.length === 1 && paragraph.firstElementChild?.tagName === "IMG";
+}
+
+function isCaptionParagraph(paragraph) {
+  return paragraph?.children.length === 1 && paragraph.firstElementChild?.tagName === "EM";
+}
+
+function classifyArticleFigure(figure, image) {
+  const apply = () => {
+    const isPortrait = image.naturalHeight > image.naturalWidth * 1.12;
+    figure.classList.toggle("is-portrait", isPortrait);
+    figure.classList.toggle("is-landscape", !isPortrait);
+  };
+
+  if (image.complete && image.naturalWidth) {
+    apply();
+  } else {
+    image.addEventListener("load", apply, { once: true });
+  }
+}
+
+function enhanceArticleMedia() {
+  detailArticle.querySelectorAll("p").forEach((paragraph) => {
+    if (!isSingleImageParagraph(paragraph)) return;
+
+    const image = paragraph.firstElementChild;
+    const captionParagraph = paragraph.nextElementSibling;
+    const figure = document.createElement("figure");
+    figure.className = "article-figure is-landscape";
+
+    paragraph.before(figure);
+    figure.append(image);
+
+    if (isCaptionParagraph(captionParagraph)) {
+      const caption = document.createElement("figcaption");
+      caption.textContent = captionParagraph.textContent.trim();
+      figure.append(caption);
+      captionParagraph.remove();
+    }
+
+    paragraph.remove();
+    classifyArticleFigure(figure, image);
+  });
+}
+
+async function loadDetailArticle(card) {
+  const slug = card.dataset.article;
+  if (!slug) {
+    detailArticle.hidden = true;
+    detailArticle.innerHTML = "";
+    return;
+  }
+
+  detailArticle.hidden = false;
+  detailArticle.innerHTML = `<p class="article-loading">${getActiveLang() === "ja" ? "記事を読み込んでいます..." : "Loading article..."}</p>`;
+
+  const markdown = await fetchArticleMarkdown(slug, getActiveLang());
+  if (!markdown.trim()) {
+    detailArticle.innerHTML = `<p class="article-loading">${getActiveLang() === "ja" ? "記事は準備中です。" : "Article coming soon."}</p>`;
+    return;
+  }
+
+  detailArticle.innerHTML = window.marked
+    ? marked.parse(markdown)
+    : `<pre>${escapeHtml(markdown)}</pre>`;
+
+  enhanceArticleMedia();
+}
+
+
+function parseJsonList(value) {
+  if (!value) return [];
+  try {
+    const parsed = JSON.parse(value);
+    return Array.isArray(parsed) ? parsed : [];
+  } catch (error) {
+    return [];
+  }
+}
+
+function getGalleryCaptions(card) {
+  const lang = getActiveLang();
+  return parseJsonList(card.dataset[`captions${lang.charAt(0).toUpperCase() + lang.slice(1)}`]);
+}
+
+async function openDetailView(card) {
+  const { period, badge, title, desc, chips } = getCardContent(card);
   detailPeriod.textContent = period;
   detailTitle.textContent  = title;
   detailDesc.textContent   = desc;
@@ -179,14 +291,37 @@ detailOpenBtn.addEventListener("click", () => {
   detailBadge.hidden       = !badge;
   detailChips.innerHTML    = chips.map((c) => `<span>${c}</span>`).join("");
 
+  const galleryCaptions = getGalleryCaptions(card);
   detailGallery.innerHTML = currentImages
-    .map((src, i) => `<img src="${src}" alt="photo ${i + 1}" loading="lazy">`)
+    .map((src, i) => {
+      const caption = galleryCaptions[i] || "";
+      return `
+        <figure class="detail-gallery-item">
+          <img src="${src}" alt="${caption || `photo ${i + 1}`}" loading="lazy">
+          ${caption ? `<figcaption>${caption}</figcaption>` : ""}
+        </figure>
+      `;
+    })
     .join("");
 
   closeModal();
   detailOverlay.removeAttribute("hidden");
   detailOverlay.scrollTop = 0;
   document.body.style.overflow = "hidden";
+  await loadDetailArticle(card);
+}
+
+detailOpenBtn.addEventListener("click", () => {
+  if (!currentCard) return;
+  openDetailView(currentCard);
+});
+
+langButtons.forEach((btn) => {
+  btn.addEventListener("click", () => {
+    if (!detailOverlay.hasAttribute("hidden") && currentCard) {
+      openDetailView(currentCard);
+    }
+  });
 });
 
 detailOverlay.querySelector(".detail-back").addEventListener("click", () => {
