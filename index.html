@@ -14,8 +14,7 @@
     <header class="site-header">
       <nav class="nav" aria-label="Primary navigation">
         <a class="brand" href="#hero">Kotaro Nakata</a>
-        <div class="nav-links">
-          <a href="#about">About</a>
+        <div class="nav-links" id="primary-menu">
           <a href="#works">Works</a>
           <a href="#projects">Projects</a>
           <a href="#skills">Skills</a>
@@ -26,58 +25,24 @@
           <button type="button" class="lang-button is-active" data-lang="ja">JP</button>
           <button type="button" class="lang-button" data-lang="en">EN</button>
         </div>
+        <button type="button" class="nav-toggle" aria-label="メニュー" aria-expanded="false" aria-controls="primary-menu">
+          <span></span><span></span><span></span>
+        </button>
       </nav>
     </header>
 
     <main>
       <section id="hero" class="hero section">
-        <div class="container hero-grid">
-          <div class="profile-wrap">
-            <img class="profile-photo" src="images/slush_profile.jpg" alt="Kotaro Nakata profile photo">
-          </div>
-          <div class="hero-copy">
-            <h1>Kotaro Nakata</h1>
-            <p class="lead" data-ja="好奇心が、私のエンジンです。宇宙から起業まで、面白いと思ったら飛び込んできた。" data-en="Curiosity is my engine. From space research to startups — I jump in when it's interesting.">好奇心が、私のエンジンです。宇宙から起業まで、面白いと思ったら飛び込んできた。</p>
-            <div class="hero-actions">
-              <a class="button primary" href="#about" data-ja="もっと知る" data-en="Learn More">もっと知る</a>
-              <a class="button ghost" href="mailto:kuriru.ksr@gmail.com" data-ja="相談する" data-en="Get in touch">相談する</a>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section id="about" class="section alt">
-        <div class="container">
-          <div class="section-heading">
-            <p class="eyebrow" data-ja="About Me" data-en="About Me">About Me</p>
-            <h2 data-ja="課題起点でものを作る人。" data-en="A builder who starts from real problems.">課題起点でものを作る人。</h2>
-          </div>
-          <div class="about-grid">
-            <div class="about-text">
-              <p data-ja="電気を学べば将来困らなさそう、という理由で高専に進みました。そこで出会った「宇宙推進」の研究が、人生を大きく変えました。SFみたいで面白い。それだけで十分な理由でした。" data-en="I chose electrical engineering because it seemed practical. What I didn't expect was falling in love with space propulsion research — it felt like science fiction, and that was enough reason.">電気を学べば将来困らなさそう、という理由で高専に進みました。そこで出会った「宇宙推進」の研究が、人生を大きく変えました。SFみたいで面白い。それだけで十分な理由でした。</p>
-              <p data-ja="アールト大学で起業家たちと話すうちに、「作りたいものを作る」より「解くべき課題を見つける」ことの難しさに気づきました。ビジョン先行で動いていた時期の失敗は、今の自分の土台になっています。" data-en="At Aalto, surrounded by entrepreneurs, I learned the hard way that &quot;having a vision&quot; and &quot;finding a real problem to solve&quot; are very different things. That failure shaped how I think now.">アールト大学で起業家たちと話すうちに、「作りたいものを作る」より「解くべき課題を見つける」ことの難しさに気づきました。ビジョン先行で動いていた時期の失敗は、今の自分の土台になっています。</p>
-              <p data-ja="課題起点でものを作る。技術で人が本当に困っていることに応えたい。テニスコーチとして、フィンランドで大人に教え続けているのも、そういう「人に直接関わる」感覚が好きだからだと思います。" data-en="I want to build things that solve problems people genuinely have — using engineering and software. Outside of that, I coach tennis in Espoo, because I've always loved being directly useful to people.">課題起点でものを作る。技術で人が本当に困っていることに応えたい。テニスコーチとして、フィンランドで大人に教え続けているのも、そういう「人に直接関わる」感覚が好きだからだと思います。</p>
-              <div class="tag-row">
-                <span data-ja="愛情深い" data-en="Caring">愛情深い</span>
-                <span data-ja="好奇心旺盛" data-en="Curious">好奇心旺盛</span>
-                <span data-ja="行動派" data-en="Bias for Action">行動派</span>
-                <span data-ja="課題解決思考" data-en="Problem-driven">課題解決思考</span>
-                <span data-ja="国際派" data-en="Cross-cultural">国際派</span>
-              </div>
-            </div>
-            <figure class="photo-note">
-              <img src="images/vr_goggles.jpg" alt="Kotaro trying VR goggles in Finland">
-              <figcaption data-ja="フィンランドで初めてVR体験。" data-en="First VR experience in Finland. Apparently my mouth opened.">フィンランドで初めてVR体験。</figcaption>
-            </figure>
-          </div>
+        <div class="container hero-minimal">
+          <h1>Kotaro Nakata</h1>
+          <p class="hero-catch" data-ja="課題を起点に、テクノロジーで解く。" data-en="Problem-first. Solved through technology.">課題を起点に、テクノロジーで解く。</p>
         </div>
       </section>
 
       <section id="works" class="section">
         <div class="container">
-          <div class="section-heading">
-            <p class="eyebrow" data-ja="Works" data-en="Works">Works</p>
-            <h2 data-ja="研究、ソフトウェア、コミュニティ。" data-en="Research, software, and community.">研究、ソフトウェア、コミュニティ。</h2>
+          <div class="section-heading simple-heading">
+            <h2 data-ja="Works" data-en="Works">Works</h2>
           </div>
           <div class="work-grid">
 
@@ -126,9 +91,8 @@
 
       <section id="projects" class="section alt">
         <div class="container">
-          <div class="section-heading">
-            <p class="eyebrow" data-ja="Projects" data-en="Projects">Projects</p>
-            <h2 data-ja="挑戦と、ものづくり。" data-en="Challenges and making things.">挑戦と、ものづくり。</h2>
+          <div class="section-heading simple-heading">
+            <h2 data-ja="Projects" data-en="Projects">Projects</h2>
           </div>
           <div class="work-grid">
 
@@ -222,9 +186,8 @@
 
       <section id="skills" class="section alt">
         <div class="container">
-          <div class="section-heading">
-            <p class="eyebrow" data-ja="Skills" data-en="Skills">Skills</p>
-            <h2 data-ja="宇宙からWebまで、手を動かしてきた領域。" data-en="Hands-on across space, web, and people.">宇宙からWebまで、手を動かしてきた領域。</h2>
+          <div class="section-heading simple-heading">
+            <h2 data-ja="Skills" data-en="Skills">Skills</h2>
           </div>
           <div class="skill-grid">
             <article class="skill-card">
@@ -273,9 +236,8 @@
 
       <section id="story" class="section">
         <div class="container">
-          <div class="section-heading">
-            <p class="eyebrow" data-ja="Ex & Story" data-en="Experience & Story">Ex & Story</p>
-            <h2 data-ja="好奇心の履歴。" data-en="A timeline of curiosity.">好奇心の履歴。</h2>
+          <div class="section-heading simple-heading">
+            <h2 data-ja="Experience" data-en="Experience">Experience</h2>
           </div>
           <div class="story-chapters">
 

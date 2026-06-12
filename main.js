@@ -1,23 +1,39 @@
-// ── Background gradient follows cursor ────────────────
+// ── Living background: blobs drift on their own + react to cursor ──
 (function () {
-  let tx = 15, ty = 15;
-  let cx = 15, cy = 15;
-
-  document.addEventListener("mousemove", (e) => {
-    tx = (e.clientX / window.innerWidth)  * 100;
-    ty = (e.clientY / window.innerHeight) * 100;
-  });
-
   const root = document.documentElement;
-  (function tick() {
-    cx += (tx - cx) * 0.055;
-    cy += (ty - cy) * 0.055;
-    root.style.setProperty("--gx", cx.toFixed(2) + "%");
-    root.style.setProperty("--gy", cy.toFixed(2) + "%");
-    root.style.setProperty("--ax", (100 - cx).toFixed(2) + "%");
-    root.style.setProperty("--ay", (100 - cy).toFixed(2) + "%");
+  const set = (k, v) => root.style.setProperty(k, v.toFixed(2) + "%");
+
+  // Reduced-motion: place blobs once, statically, and bail.
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    set("--gx", 16); set("--gy", 12);
+    set("--ax", 86); set("--ay", 88);
+    set("--bx", 78); set("--by", 22);
+    return;
+  }
+
+  // Cursor target as a -1..1 offset from screen centre (eased).
+  let tmx = 0, tmy = 0, mx = 0, my = 0;
+  window.addEventListener("mousemove", (e) => {
+    tmx = (e.clientX / window.innerWidth  - 0.5) * 2;
+    tmy = (e.clientY / window.innerHeight - 0.5) * 2;
+  }, { passive: true });
+
+  const t0 = performance.now();
+  (function tick(now) {
+    const t = (now - t0) / 1000;
+    mx += (tmx - mx) * 0.05;
+    my += (tmy - my) * 0.05;
+
+    // Each blob: a slow Lissajous drift + gentle parallax pull from cursor.
+    set("--gx", 16 + Math.sin(t * 0.17)        * 13 + mx * 20);
+    set("--gy", 14 + Math.cos(t * 0.13)        * 10 + my * 20);
+    set("--ax", 86 + Math.sin(t * 0.12 + 2.1)  * 13 - mx * 20);
+    set("--ay", 86 + Math.cos(t * 0.15 + 1.3)  * 11 - my * 20);
+    set("--bx", 78 + Math.sin(t * 0.09 + 4.2)  * 15 + mx * 12);
+    set("--by", 24 + Math.cos(t * 0.11 + 0.7)  * 13 - my * 12);
+
     requestAnimationFrame(tick);
-  })();
+  })(t0);
 })();
 
 // Language toggle
@@ -55,6 +71,34 @@ langButtons.forEach((btn) => btn.addEventListener("click", () => setLang(btn.dat
 const savedLang = localStorage.getItem("lang");
 const browserLang = navigator.language?.startsWith("ja") ? "ja" : "en";
 setLang(savedLang || browserLang);
+
+// ── Mobile hamburger menu ──────────────────────────────
+(function () {
+  const nav = document.querySelector(".nav");
+  const toggle = document.querySelector(".nav-toggle");
+  if (!nav || !toggle) return;
+
+  const close = () => {
+    nav.classList.remove("is-open");
+    toggle.setAttribute("aria-expanded", "false");
+  };
+
+  toggle.addEventListener("click", () => {
+    const open = nav.classList.toggle("is-open");
+    toggle.setAttribute("aria-expanded", String(open));
+  });
+
+  // Close after tapping a link, or pressing Escape, or clicking outside.
+  nav.querySelectorAll(".nav-links a").forEach((a) =>
+    a.addEventListener("click", close)
+  );
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") close();
+  });
+  document.addEventListener("click", (e) => {
+    if (nav.classList.contains("is-open") && !nav.contains(e.target)) close();
+  });
+})();
 
 // ── Modal ──────────────────────────────────────────────
 const modalOverlay  = document.getElementById("modal");
