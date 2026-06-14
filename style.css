@@ -387,9 +387,9 @@ h3 {
 .section-heading > h2::after {
   content: "";
   display: block;
-  height: 9px;
+  height: 10px;
   margin-top: 4px;
-  background: no-repeat left bottom / auto 9px
+  background: no-repeat center bottom / 100% 10px
     url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='9' viewBox='0 0 180 9' preserveAspectRatio='none'%3E%3Cpath d='M2 5 Q30 1 60 5 T118 5 T176 4' fill='none' stroke='%23159b4f' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E");
 }
 
