@@ -1,29 +1,27 @@
 ---
 {
   "title": "National Satellite Model Contest",
-  "summary": "Competed in the 6th National Satellite Model Making Contest and earned an Honorable Mention. The contest evaluated satellite structure, functionality, and presentation.",
-  "period": "Oct 2022",
+  "summary": "I got my former school teacher involved and took part in the National Satellite Model Contest.",
+  "period": "Oct 2021",
   "images": [
     "images/satellite_1.jpg",
     "images/satellite_2.jpg",
     "images/satellite_3.jpg",
-    "images/satellite_4.jpg",
     "images/satellite_5.jpg",
     "images/satellite_6.jpg"
   ],
   "alt": "National Satellite Model Contest",
   "captions": [
-    "The full satellite model",
-    "Checking details of the model",
-    "The satellite model during fabrication",
-    "Adjusting structure and component placement",
-    "The model prepared for presentation",
-    "The satellite model used at the contest"
+    "The first prototype",
+    "Splitting parts for 3D printing",
+    "Combining aluminum foil and paint for a realistic look",
+    "The contest venue",
+    "Other participants and me, closest to the camera"
   ]
 }
 ---
 
-# Turning a satellite into a model and explaining the function
+# The difficulty of building a model
 
 In the National Satellite Model Contest, we represented the structure and function of a satellite as a physical model and presented the concept. It was not only about making something that looked good. We had to explain why it had that shape and how it would work.
 

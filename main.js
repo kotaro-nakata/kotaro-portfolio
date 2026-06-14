@@ -563,6 +563,11 @@ function enhanceArticleMedia() {
   });
 }
 
+function processInstagramEmbeds() {
+  if (!detailArticle.querySelector(".instagram-media")) return;
+  window.instgrm?.Embeds?.process();
+}
+
 async function loadDetailArticle(card) {
   const slug = card.dataset.article;
   if (!slug) {
@@ -585,6 +590,7 @@ async function loadDetailArticle(card) {
     : `<pre>${escapeHtml(markdown)}</pre>`;
 
   enhanceArticleMedia();
+  processInstagramEmbeds();
 }
 
 

@@ -1,44 +1,39 @@
 ---
 {
   "title": "Tennis Coach",
-  "summary": "Worked as a tennis coach in Kobe and Finland for a total of 6 years. I shared the joy of tennis across languages and countries.",
+  "summary": "Worked as a tennis coach for five years at Noah and one year in Espoo, Finland. I taught everyone from beginners to advanced players.",
   "period": "",
   "images": [
-    "images/tennis_1.jpg",
-    "images/tennis_2.jpg"
+    "images/tennis_2.jpg",
+    "images/tennis_1.jpg"
   ],
   "alt": "Tennis Coach",
   "captions": [
-    "Coaching on the tennis court",
-    "Playing tennis in Finland"
+    "Profile photo at Noah",
+    "During play"
   ]
 }
 ---
 
-# Working directly with people as a tennis coach
+# As a Tennis Coach
 
-I have taught tennis for more than five years in Kobe and Espoo, Finland. It may look separate from engineering or software, but it is similar in the sense that I observe people, break down problems, and adjust how I communicate.
+I worked as a tennis coach for five years at Noah and for one year in Espoo, Finland. I coached a wide range of players, from beginners to advanced students, and received comments such as "tennis with you is fun," "your explanations are easy to understand," and "it feels great to hit so many balls."<br>
+This experience helped me grow many skills that are hard to see directly: word choice, presence on court, and communication with customers. When teaching tennis, I had to instantly identify each customer's issue, break it down, and explain it clearly. If one explanation did not land, I had to switch to another expression. There was a lot to learn. I was working as a part-time coach, but whether the coach is full-time or part-time, the lesson fee paid by the customer is the same. That gave me a strong sense of responsibility.<br>
 
 <div class="article-gallery">
   <figure>
     <img src="images/tennis_1.jpg" alt="Coaching on a tennis court">
     <figcaption>
-      The same advice can land very differently depending on the person.
-    </figcaption>
-  </figure>
-  <figure>
-    <img src="images/tennis_2.jpg" alt="Tennis in Finland">
-    <figcaption>
-      Whether in Japanese or English, the important part was adapting the message to the person.
+      I tried to create lessons where customers could improve while enjoying tennis.
     </figcaption>
   </figure>
 </div>
 
 
-## Teaching Means Observing
+## Nakata Coach Graduation Event
 
-Form habits, nervousness, body movement, and how someone receives words all matter. In coaching, I have to find where the person is currently stuck.
-
-## How It Shapes Me
-
-Coaching has trained my sense of working directly with people. In product development too, the same attitude matters: carefully watching what someone is struggling with.
+<div class="instagram-embed">
+  <blockquote class="instagram-media" data-instgrm-captioned data-instgrm-permalink="https://www.instagram.com/p/C81Ev9kphzU/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14">
+    <a href="https://www.instagram.com/p/C81Ev9kphzU/" target="_blank" rel="noopener">Post from Nakata Coach's graduation event</a>
+  </blockquote>
+</div>

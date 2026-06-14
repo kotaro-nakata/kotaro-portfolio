@@ -1139,6 +1139,22 @@ h3 {
   color: var(--text);
 }
 
+.detail-article .instagram-embed {
+  display: flex;
+  justify-content: center;
+  margin: 28px 0;
+  width: 100%;
+}
+
+.detail-article .instagram-media,
+.detail-article .instagram-embed iframe {
+  border-left: 0;
+  margin: 0 auto !important;
+  max-width: 360px !important;
+  min-width: 0 !important;
+  width: 100% !important;
+}
+
 .detail-article a {
   color: var(--primary);
   font-weight: 700;

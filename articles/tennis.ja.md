@@ -4,41 +4,37 @@
   "summary": "神戸とフィンランドでテニスコーチを計6年。日本語でも英語でも、国を越えて「テニスの楽しさ」を伝えてきました。",
   "period": "",
   "images": [
-    "images/tennis_1.jpg",
-    "images/tennis_2.jpg"
+    "images/tennis_2.jpg",
+    "images/tennis_1.jpg"
   ],
   "alt": "テニスコーチ",
   "captions": [
-    "テニスコートでのコーチング",
-    "フィンランドでのテニスの様子"
+    "Noahでのプロフ写真",
+    "プレー中の様子"
   ]
 }
 ---
 
-# テニスコーチとして、人に直接関わる
+# テニスコーチとして
 
-神戸とフィンランド・エスポーで、テニスコーチとして5年以上教えてきました。工学やソフトウェアとは違う領域に見えますが、相手を観察し、課題を分解し、伝え方を変えるという意味ではかなり近い仕事です。
+Noahで5年とフィンランドのエスポーで1年、テニスコーチをしていました。初心者から上級者まで担当し「コーチとのテニスは楽しい！」「教え方がわかりやすい」「沢山ボールを打てて気分がいい」といった声をいただきました。<br>
+この経験は、自分の目に見えないスキルを大きく伸ばしてくれました。言葉遣いやコートでの姿勢、お客様とのコミュニケーション。テニスを教える際は瞬時にお客様の課題を見つけ、わかりやすく分解して説明する。その説明でわからなければ、他の表現に変える。など、様々な学びがありました。アルバイトコーチとしてやっていたわけですが、社員コーチであろうと、アルバイトコーチであろうと、お客様が支払うレッスンフィーは同じで、大きな責任感がありました。<br>
+
 
 <div class="article-gallery">
   <figure>
     <img src="images/tennis_1.jpg" alt="テニスコートでのコーチング">
     <figcaption>
-      同じアドバイスでも、人によって届き方はまったく違います。
-    </figcaption>
-  </figure>
-  <figure>
-    <img src="images/tennis_2.jpg" alt="フィンランドでのテニス">
-    <figcaption>
-      日本語でも英語でも、結局大事なのは相手に合わせて伝えることでした。
+      お客様が楽しく上達できるレッスンを心がけました。
     </figcaption>
   </figure>
 </div>
 
 
-## 教えることは、見ること
+## 中田コーチ卒業イベントの様子
 
-フォームの癖、緊張、体の使い方、言葉の受け取り方。コーチングでは、相手が今どこで詰まっているのかを見つける必要があります。
-
-## 今の自分への影響
-
-テニスコーチの経験は、人と向き合う感覚を育ててくれました。プロダクト開発でも、相手が何に困っているかを丁寧に見る姿勢は同じです。
+<div class="instagram-embed">
+  <blockquote class="instagram-media" data-instgrm-captioned data-instgrm-permalink="https://www.instagram.com/p/C81Ev9kphzU/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14">
+    <a href="https://www.instagram.com/p/C81Ev9kphzU/" target="_blank" rel="noopener">中田コーチ卒業イベントの投稿</a>
+  </blockquote>
+</div>

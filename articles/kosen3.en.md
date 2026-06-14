@@ -1,8 +1,8 @@
 ---
 {
   "title": "Microsatellite Development Project",
-  "summary": "I worked on developing a propulsion system for a microsatellite. It is scheduled to be launched by JAXA!!",
-  "period": "Apr 2022 - Aug",
+  "summary": "I worked on developing a propulsion system. It is scheduled to be launched by JAXA!!",
+  "period": "Apr 2022 - Aug 2024",
   "images": [
     "images/kosen3_1.jpg",
     "images/kosen3_2.jpg",
@@ -19,7 +19,7 @@
 
 # Giving a small satellite the option of propulsion
 
-The [KOSEN-3 Project](https://www.akashi.ac.jp/news/2022/20230209sou001.html) is a project to develop and launch the KOSEN-3 microsatellite through a collaboration among eight KOSEN colleges and two universities, led mainly by Kagawa KOSEN and Akashi KOSEN. It was selected as one of the demonstration themes for JAXA's Innovative Satellite Technology Demonstration-5 and is scheduled to be launched. I joined from the early stage as a member of one theme: demonstrating technology to extend orbital lifetime using a PPT (Pulsed Plasma Thruster) propulsion system.
+The [KOSEN-3 Project](https://www.akashi.ac.jp/news/2022/20230209sou001.html) is a project to develop and launch the KOSEN-3 microsatellite through a collaboration among eight KOSEN colleges and two universities, led mainly by Kagawa KOSEN and Akashi KOSEN. It was selected as one of the demonstration themes for JAXA's Innovative Satellite Technology Demonstration-5 and is scheduled to be launched in the coming years. I joined from the early stage as a member of one theme: demonstrating technology to extend orbital lifetime using a PPT (Pulsed Plasma Thruster) propulsion system.
 
 <div class="article-gallery">
   <figure>
