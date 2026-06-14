@@ -1,0 +1,19 @@
+{
+  "sections": {
+    "works": [
+      "kosen3",
+      "aalto-space",
+      "kyutech"
+    ],
+    "projects": [
+      "satellite-model",
+      "makerspace",
+      "prosthetic"
+    ],
+    "aside": [
+      "tennis",
+      "soldering",
+      "noah-card"
+    ]
+  }
+}

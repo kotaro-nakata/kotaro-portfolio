@@ -72,6 +72,170 @@ const savedLang = localStorage.getItem("lang");
 const browserLang = navigator.language?.startsWith("ja") ? "ja" : "en";
 setLang(savedLang || browserLang);
 
+const portfolioSections = {
+  works: document.querySelector('[data-section="works"]'),
+  projects: document.querySelector('[data-section="projects"]'),
+  aside: document.querySelector('[data-section="aside"]'),
+};
+const articleCache = new Map();
+
+function localizedText(value, lang = getActiveLang()) {
+  if (!value || typeof value !== "object") return value || "";
+  return value[lang] || value.ja || value.en || "";
+}
+
+function parseArticleMarkdown(markdown) {
+  if (!markdown.startsWith("---\n")) return { meta: {}, body: markdown };
+
+  const end = markdown.indexOf("\n---\n", 4);
+  if (end === -1) return { meta: {}, body: markdown };
+
+  const rawMeta = markdown.slice(4, end).trim();
+  const body = markdown.slice(end + 5).replace(/^\s+/, "");
+  try {
+    return { meta: JSON.parse(rawMeta), body };
+  } catch (error) {
+    console.warn("Invalid article frontmatter", error);
+    return { meta: {}, body };
+  }
+}
+
+async function fetchArticleFile(slug, lang) {
+  const key = `${slug}.${lang}`;
+  if (articleCache.has(key)) return articleCache.get(key);
+
+  const candidates = [`articles/${slug}.${lang}.md`, `articles/${slug}.ja.md`];
+  for (const url of [...new Set(candidates)]) {
+    try {
+      const response = await fetch(`${url}?v=20260614-2`);
+      if (!response.ok) continue;
+      const parsed = parseArticleMarkdown(await response.text());
+      articleCache.set(key, parsed);
+      return parsed;
+    } catch (error) {
+      // Try the fallback candidate below.
+    }
+  }
+
+  const empty = { meta: {}, body: "" };
+  articleCache.set(key, empty);
+  return empty;
+}
+
+async function getArticleData(slug) {
+  const [ja, en] = await Promise.all([
+    fetchArticleFile(slug, "ja"),
+    fetchArticleFile(slug, "en"),
+  ]);
+
+  return {
+    slug,
+    ja: ja.meta,
+    en: en.meta,
+  };
+}
+
+function setJsonData(element, name, value) {
+  if (!value || (Array.isArray(value) && value.length === 0)) return;
+  element.dataset[name] = JSON.stringify(value);
+}
+
+function applyArticleDataset(element, item) {
+  element.dataset.article = item.slug;
+  setJsonData(element, "images", item.ja.images || item.en.images || []);
+  setJsonData(element, "captionsJa", item.ja.captions || []);
+  setJsonData(element, "captionsEn", item.en.captions || []);
+}
+
+function renderWorkCard(item) {
+  const active = item[getActiveLang()] || item.ja || item.en || {};
+  const card = document.createElement("article");
+  card.className = "work-card";
+  applyArticleDataset(card, item);
+
+  const image = document.createElement("img");
+  image.className = "work-media";
+  image.src = active.images?.[0] || item.ja.images?.[0] || item.en.images?.[0] || "";
+  image.alt = active.alt || item.ja.alt || item.en.alt || active.title || "";
+
+  const body = document.createElement("div");
+  body.className = "work-body";
+
+  const period = document.createElement("span");
+  period.className = "period";
+  period.textContent = active.period || item.ja.period || item.en.period || "";
+
+  const title = document.createElement("h3");
+  title.dataset.ja = item.ja.title || "";
+  title.dataset.en = item.en.title || "";
+  title.textContent = localizedText({ ja: item.ja.title, en: item.en.title });
+
+  const desc = document.createElement("p");
+  desc.dataset.ja = item.ja.summary || "";
+  desc.dataset.en = item.en.summary || "";
+  desc.textContent = localizedText({ ja: item.ja.summary, en: item.en.summary });
+
+  body.append(period, title, desc);
+  card.append(image, body);
+  return card;
+}
+
+function renderAsideCard(item) {
+  const active = item[getActiveLang()] || item.ja || item.en || {};
+  const card = document.createElement("figure");
+  card.className = "aside-item";
+  applyArticleDataset(card, item);
+  card.dataset.titleJa = item.ja.title || "";
+  card.dataset.titleEn = item.en.title || "";
+  card.dataset.descJa = item.ja.summary || "";
+  card.dataset.descEn = item.en.summary || "";
+
+  const image = document.createElement("img");
+  image.src = active.images?.[0] || item.ja.images?.[0] || item.en.images?.[0] || "";
+  image.alt = active.alt || item.ja.alt || item.en.alt || active.title || "";
+
+  const caption = document.createElement("figcaption");
+  const title = document.createElement("strong");
+  title.dataset.ja = item.ja.title || "";
+  title.dataset.en = item.en.title || "";
+  title.textContent = localizedText({ ja: title.dataset.ja, en: title.dataset.en });
+
+  const desc = document.createElement("span");
+  desc.dataset.ja = item.ja.summary || "";
+  desc.dataset.en = item.en.summary || "";
+  desc.textContent = localizedText({ ja: desc.dataset.ja, en: desc.dataset.en });
+
+  caption.append(title, desc);
+  card.append(image, caption);
+  return card;
+}
+
+async function loadPortfolioIndex() {
+  const response = await fetch("articles.json?v=20260614-2");
+  if (!response.ok) throw new Error(`Failed to load articles.json: ${response.status}`);
+  return response.json();
+}
+
+async function renderPortfolioCards() {
+  const data = await loadPortfolioIndex();
+  for (const [section, container] of Object.entries(portfolioSections)) {
+    if (!container) continue;
+    container.innerHTML = "";
+    const renderer = section === "aside" ? renderAsideCard : renderWorkCard;
+    const articles = await Promise.all((data.sections?.[section] || []).map(getArticleData));
+    articles.forEach((item) => container.append(renderer(item)));
+  }
+  setLang(getActiveLang());
+}
+
+function showPortfolioLoadError(error) {
+  console.error(error);
+  Object.values(portfolioSections).forEach((container) => {
+    if (!container) return;
+    container.innerHTML = `<p class="content-load-error">${getActiveLang() === "ja" ? "記事一覧を読み込めませんでした。" : "Could not load article cards."}</p>`;
+  });
+}
+
 // ── Mobile hamburger menu ──────────────────────────────
 (function () {
   const nav = document.querySelector(".nav");
@@ -101,7 +265,7 @@ setLang(savedLang || browserLang);
 })();
 
 // ── Horizontal card sliders (Works / Projects) ─────────
-(function () {
+function initCardSliders() {
   document.querySelectorAll(".work-grid, .aside-grid").forEach((grid) => {
     const cards = [...grid.children];
     if (!cards.length) return;
@@ -169,7 +333,7 @@ setLang(savedLang || browserLang);
       }
     });
   });
-})();
+}
 
 // ── Modal ──────────────────────────────────────────────
 const modalOverlay  = document.getElementById("modal");
@@ -188,14 +352,56 @@ const detailOpenBtn = modalOverlay.querySelector(".detail-open-btn");
 let currentImages = [];
 let currentIndex  = 0;
 let currentCard   = null;
+let slideRequestId = 0;
+const preloadedImages = new Map();
+
+function preloadImage(src) {
+  if (!src) return Promise.reject(new Error("Image source is empty."));
+  if (preloadedImages.has(src)) return preloadedImages.get(src);
+
+  const promise = new Promise((resolve, reject) => {
+    const image = new Image();
+    image.onload = () => resolve(src);
+    image.onerror = () => reject(new Error(`Failed to load image: ${src}`));
+    image.src = src;
+  });
+
+  preloadedImages.set(src, promise);
+  return promise;
+}
+
+function preloadSlides(images) {
+  images.forEach((src) => {
+    preloadImage(src).catch(() => {
+      preloadedImages.delete(src);
+    });
+  });
+}
 
 function showSlide(i) {
+  if (currentImages.length === 0) return;
+
   currentIndex = (i + currentImages.length) % currentImages.length;
+  const nextSrc = currentImages[currentIndex];
+  const requestId = ++slideRequestId;
+
   slideImg.classList.add("is-fading");
+  preloadImage(nextSrc)
+    .catch(() => nextSrc)
+    .then((src) => {
+      if (requestId !== slideRequestId) return;
+      slideImg.src = src;
+    })
+    .finally(() => {
+      if (requestId !== slideRequestId) return;
+      slideImg.classList.remove("is-fading");
+    });
+
   setTimeout(() => {
-    slideImg.src = currentImages[currentIndex];
+    if (requestId !== slideRequestId) return;
     slideImg.classList.remove("is-fading");
-  }, 180);
+  }, 900);
+
   dotsContainer.querySelectorAll(".dot").forEach((d, j) => {
     d.classList.toggle("active", j === currentIndex);
   });
@@ -234,6 +440,7 @@ function openModal(card) {
 
   if (currentImages.length > 0) {
     currentIndex = 0;
+    slideRequestId += 1;
     dotsContainer.innerHTML = currentImages.length > 1
       ? currentImages.map((_, i) => `<button class="dot${i === 0 ? " active" : ""}" aria-label="画像${i + 1}"></button>`).join("")
       : "";
@@ -242,6 +449,7 @@ function openModal(card) {
     slideImg.src = currentImages[0];
     slideImg.classList.remove("is-fading");
     slideshow.hidden = false;
+    preloadSlides(currentImages);
   } else {
     slideshow.hidden = true;
   }
@@ -253,6 +461,7 @@ function openModal(card) {
   modalBadge.textContent  = badge;
   modalBadge.hidden       = !badge;
   modalChips.innerHTML    = chips.map((c) => `<span>${c}</span>`).join("");
+  modalChips.hidden       = chips.length === 0;
 
   detailOpenBtn.hidden = currentImages.length === 0;
 
@@ -265,12 +474,14 @@ function closeModal() {
   document.body.style.overflow = "";
 }
 
-document.querySelectorAll(".work-card, .aside-item").forEach((card) => {
-  card.addEventListener("click", () => {
-    if (card.closest(".work-grid, .aside-grid")?.dataset.dragging === "1") return;
-    openModal(card);
+function initCardModals() {
+  document.querySelectorAll(".work-card, .aside-item").forEach((card) => {
+    card.addEventListener("click", () => {
+      if (card.closest(".work-grid, .aside-grid")?.dataset.dragging === "1") return;
+      openModal(card);
+    });
   });
-});
+}
 
 modalOverlay.addEventListener("click", (e) => {
   if (e.target === modalOverlay) closeModal();
@@ -301,16 +512,8 @@ function escapeHtml(value) {
 }
 
 async function fetchArticleMarkdown(slug, lang) {
-  const candidates = [`articles/${slug}.${lang}.md`, `articles/${slug}.ja.md`];
-  for (const url of [...new Set(candidates)]) {
-    try {
-      const response = await fetch(url);
-      if (response.ok) return response.text();
-    } catch (error) {
-      // Keep the detail view usable even if an article file is missing locally.
-    }
-  }
-  return "";
+  const article = await fetchArticleFile(slug, lang);
+  return article.body;
 }
 
 
@@ -408,6 +611,7 @@ async function openDetailView(card) {
   detailBadge.textContent  = badge;
   detailBadge.hidden       = !badge;
   detailChips.innerHTML    = chips.map((c) => `<span>${c}</span>`).join("");
+  detailChips.hidden       = chips.length === 0;
 
   const galleryCaptions = getGalleryCaptions(card);
   detailGallery.innerHTML = currentImages
@@ -491,6 +695,14 @@ document.querySelectorAll(".chapter-toggle").forEach((btn) => {
     }
   });
 });
+
+
+renderPortfolioCards()
+  .then(() => {
+    initCardSliders();
+    initCardModals();
+  })
+  .catch(showPortfolioLoadError);
 
 // ── Keyboard ───────────────────────────────────────────
 document.addEventListener("keydown", (e) => {

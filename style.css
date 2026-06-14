@@ -1144,10 +1144,43 @@ h3 {
   font-weight: 700;
 }
 
+.detail-article .article-gallery {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  align-items: flex-start;
+  margin: 28px 0;
+}
+
+.detail-article .article-gallery figure {
+  flex: 1 1 240px;
+  max-width: 400px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.detail-article .article-gallery img {
+  display: block;
+  width: 100%;
+  max-width: none;
+  height: 263px;
+  margin-inline: auto;
+  object-fit: cover;
+  border-radius: 14px;
+}
+
+.detail-article .article-gallery figcaption {
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  line-height: 1.5;
+  margin-top: 6px;
+}
+
 
 .detail-article img {
-  max-width: min(42%, 420px);
-  max-height: 320px;
+  max-width: min(52.5%, 525px);
+  max-height: 400px;
   width: auto;
   height: auto;
   object-fit: contain;
@@ -1164,17 +1197,16 @@ h3 {
 
 .article-figure {
   margin: 30px auto 28px;
+  text-align: center;
 }
 
 .article-figure.is-landscape {
-  width: min(42%, 420px);
+  width: min(52.5%, 525px);
 }
 
 .article-figure.is-portrait {
-  float: right;
-  width: min(16%, 150px);
-  min-width: 120px;
-  margin: 6px 0 20px 24px;
+  width: min(52.5%, 525px);
+  min-width: 160px;
 }
 
 .detail-article h2,
@@ -1187,6 +1219,7 @@ h3 {
   display: block;
   width: 100%;
   height: auto;
+  margin-inline: auto;
   border-radius: var(--radius);
   box-shadow: var(--shadow);
 }
@@ -1198,6 +1231,7 @@ h3 {
   font-size: 0.88rem;
   line-height: 1.65;
   margin-top: 10px;
+  text-align: center;
 }
 
 .article-loading {
