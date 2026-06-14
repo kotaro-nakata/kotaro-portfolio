@@ -1,29 +1,34 @@
 :root {
-  --bg: #f3f8f5;
-  --bg-alt: #e8f2ec;
-  --text: #20302a;
-  --text-muted: #6f847b;
-  --primary: #2d9062;
-  --accent: #f0a070;
-  --border: #d6e6dd;
-  --card: #fbfdfc;
-  --shadow: 0 6px 24px rgba(45, 144, 98, 0.07);
-  --shadow-hover: 0 14px 36px rgba(45, 144, 98, 0.13);
-  --radius: 18px;
-  --radius-sm: 12px;
+  /* ── ZINE / research-notebook palette ── */
+  --bg: #f7f3ea;          /* paper off-white */
+  --bg-alt: #f0e8d6;      /* slightly deeper paper for alt spreads */
+  --text: #1e1e1e;        /* ink black */
+  --text-muted: #5b5246;  /* faded ink / pencil */
+  --primary: #159b4f;     /* vivid green — headings, lines, key points */
+  --accent: #e84a9b;      /* magenta-pink — decorative pop */
+  --sub: #3a2a24;         /* earthy brown */
+  --border: #1e1e1e;      /* drawn ink line */
+  --border-soft: #cdbf9f; /* soft paper rule */
+  --card: #fbf7ec;        /* card paper */
+  --shadow: none;
+  --shadow-hover: 4px 4px 0 var(--text); /* hard sticker offset */
+  --radius: 3px;
+  --radius-sm: 2px;
   --page-max: 1120px;
   --page-pad: clamp(18px, 4vw, 40px);
   --slider-gap: clamp(14px, 2vw, 22px);
 
-  /* Type scale — restrained, airy, balanced (noi-inspired) */
-  --fs-hero: clamp(2.2rem, 5.2vw, 3.3rem);
-  --fs-h2: clamp(1.45rem, 3vw, 1.95rem);
-  --fs-h3: 1.02rem;
-  --fs-lead: clamp(1.05rem, 2vw, 1.3rem);
-  --fs-body: 1rem;
-  --fs-sm: 0.9rem;
-  --fs-xs: 0.8rem;
-  --fs-eyebrow: 0.78rem;
+  --font-hand: "Yusei Magic", "Inter", "Noto Sans JP", sans-serif;
+
+  /* Type scale — bold display headings, small airy body */
+  --fs-hero: clamp(2.7rem, 8.5vw, 5.4rem);
+  --fs-h2: clamp(2rem, 5.5vw, 3.4rem);
+  --fs-h3: 1.08rem;
+  --fs-lead: clamp(1.02rem, 2vw, 1.25rem);
+  --fs-body: 0.96rem;
+  --fs-sm: 0.87rem;
+  --fs-xs: 0.78rem;
+  --fs-eyebrow: 0.8rem;
 }
 
 
@@ -39,16 +44,15 @@ html {
 body {
   min-width: 320px;
   margin: 0;
-  background:
-    radial-gradient(46% 46% at var(--gx, 16%) var(--gy, 12%), rgba(45, 144, 98, 0.28), transparent 66%),
-    radial-gradient(44% 44% at var(--ax, 86%) var(--ay, 88%), rgba(240, 160, 112, 0.30), transparent 66%),
-    radial-gradient(40% 40% at var(--bx, 78%) var(--by, 22%), rgba(110, 200, 168, 0.22), transparent 66%),
-    var(--bg);
-  background-attachment: fixed;
+  /* paper + faint research-note dot grid */
+  background-color: var(--bg);
+  background-image: radial-gradient(rgba(58, 42, 36, 0.05) 1px, transparent 1.4px);
+  background-size: 22px 22px;
+  background-position: -11px -11px;
   color: var(--text);
   font-family: "Inter", "Noto Sans JP", system-ui, sans-serif;
   font-size: 16.5px;
-  line-height: 1.75;
+  line-height: 1.78;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
@@ -67,9 +71,9 @@ a {
   position: sticky;
   top: 0;
   z-index: 10;
-  border-bottom: 1px solid rgba(214, 230, 221, 0.6);
-  background: rgba(243, 248, 245, 0.78);
-  backdrop-filter: blur(16px);
+  border-bottom: 2px solid var(--text);
+  background: rgba(247, 243, 234, 0.86);
+  backdrop-filter: blur(10px);
 }
 
 .nav {
@@ -83,8 +87,10 @@ a {
 }
 
 .brand {
-  font-weight: 800;
-  letter-spacing: -0.01em;
+  font-family: var(--font-hand);
+  font-weight: 400;
+  font-size: 1.1rem;
+  letter-spacing: 0;
   white-space: nowrap;
   color: var(--primary);
 }
@@ -93,13 +99,28 @@ a {
   display: flex;
   align-items: center;
   gap: 24px;
-  color: var(--text-muted);
+  color: var(--text);
   font-size: 0.9rem;
-  font-weight: 500;
+  font-weight: 600;
+}
+
+.nav-links a {
+  position: relative;
 }
 
 .nav-links a:hover {
-  color: var(--primary);
+  color: var(--accent);
+}
+
+.nav-links a:hover::after {
+  content: "";
+  position: absolute;
+  left: -2px;
+  right: -2px;
+  bottom: -3px;
+  height: 5px;
+  background: no-repeat center/100% 5px
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='5' viewBox='0 0 40 5'%3E%3Cpath d='M1 3 Q10 0 20 3 T39 3' fill='none' stroke='%23e84a9b' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E");
 }
 
 .lang-toggle {
@@ -181,8 +202,8 @@ a {
   background: linear-gradient(
     to bottom,
     transparent,
-    rgba(45, 144, 98, 0.06) 18%,
-    rgba(45, 144, 98, 0.06) 82%,
+    rgba(21, 155, 79, 0.06) 18%,
+    rgba(21, 155, 79, 0.06) 82%,
     transparent
   );
   pointer-events: none;
@@ -196,12 +217,15 @@ a {
 }
 
 .eyebrow {
+  display: inline-block;
   margin: 0 0 12px;
-  color: var(--primary);
-  font-size: var(--fs-eyebrow);
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
+  font-family: var(--font-hand);
+  color: var(--accent);
+  font-size: 1.05rem;
+  font-weight: 400;
+  letter-spacing: 0;
+  text-transform: none;
+  transform: rotate(-1.6deg);
 }
 
 h1,
@@ -227,18 +251,20 @@ p {
 
 h1 {
   margin-bottom: 20px;
+  font-family: var(--font-hand);
   font-size: var(--fs-hero);
-  line-height: 1.08;
-  letter-spacing: -0.02em;
-  font-weight: 800;
+  line-height: 1.04;
+  letter-spacing: -0.01em;
+  font-weight: 400;
 }
 
 h2 {
   margin-bottom: 16px;
+  font-family: var(--font-hand);
   font-size: var(--fs-h2);
-  line-height: 1.22;
-  letter-spacing: -0.01em;
-  font-weight: 800;
+  line-height: 1.16;
+  letter-spacing: 0;
+  font-weight: 400;
 }
 
 h3 {
@@ -259,25 +285,33 @@ h3 {
   align-items: center;
   justify-content: center;
   min-height: 44px;
-  border-radius: 999px;
+  border: 2px solid var(--text);
+  border-radius: var(--radius);
+  background: var(--card);
+  color: var(--text);
   font-weight: 700;
   font-size: 0.9rem;
   padding: 10px 22px;
-  transition: opacity 0.18s, transform 0.18s;
+  transition: transform 0.16s ease, box-shadow 0.16s ease, background 0.16s, color 0.16s;
 }
 
 .button:hover {
-  opacity: 0.82;
-  transform: translateY(-1px);
+  background: var(--accent);
+  color: #fff;
+  transform: translate(-2px, -2px) rotate(-0.6deg);
+  box-shadow: var(--shadow-hover);
 }
 
 .button.primary {
   background: var(--primary);
-  color: white;
+  color: #fff;
+}
+
+.button.primary:hover {
+  background: var(--accent);
 }
 
 .button.ghost {
-  border: 1.5px solid var(--border);
   background: var(--card);
   color: var(--text);
 }
@@ -302,30 +336,74 @@ h3 {
   text-align: center;
 }
 
+.hero-minimal {
+  position: relative;
+}
+
 .hero-minimal h1 {
-  margin-bottom: 18px;
+  display: inline-block;
+  margin-bottom: 22px;
   font-size: var(--fs-hero);
-  letter-spacing: -0.035em;
+  letter-spacing: 0;
+  color: var(--text);
+  transform: rotate(-1.8deg);
+}
+
+/* green hand-circle sweeping around the hero name */
+.hero-minimal h1::before {
+  content: "";
+  position: absolute;
+  left: -6%;
+  top: -16%;
+  width: 112%;
+  height: 150%;
+  z-index: -1;
+  background: no-repeat center / 100% 100%
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='320' height='130' viewBox='0 0 320 130'%3E%3Cpath d='M168 8 C90 2 24 20 14 56 C6 92 78 118 168 122 C262 122 312 96 306 60 C300 26 244 8 150 10' fill='none' stroke='%23e84a9b' stroke-width='2.4' stroke-linecap='round' opacity='0.85'/%3E%3C/svg%3E");
+  pointer-events: none;
 }
 
 .hero-catch {
-  margin: 0 auto;
-  max-width: 560px;
-  color: var(--text-muted);
+  margin: 6px auto 0;
+  max-width: 540px;
+  color: var(--sub);
   font-size: var(--fs-lead);
   font-weight: 600;
-  line-height: 1.7;
+  line-height: 1.75;
   white-space: pre-line;
+  transform: rotate(-0.5deg);
 }
 
 .simple-heading {
-  margin-bottom: 22px;
+  margin-bottom: 30px;
 }
 
 .simple-heading h2 {
+  display: inline-block;
   margin-bottom: 0;
   font-size: var(--fs-h2);
-  letter-spacing: -0.02em;
+  letter-spacing: 0;
+  transform: rotate(-1.4deg);
+}
+
+/* hand-drawn green underline under section titles */
+.simple-heading h2::after,
+.section-heading > h2::after {
+  content: "";
+  display: block;
+  height: 9px;
+  margin-top: 4px;
+  background: no-repeat left bottom / auto 9px
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='9' viewBox='0 0 180 9' preserveAspectRatio='none'%3E%3Cpath d='M2 5 Q30 1 60 5 T118 5 T176 4' fill='none' stroke='%23159b4f' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E");
+}
+
+.heading-sub {
+  margin: 10px 0 0;
+  font-family: var(--font-hand);
+  color: var(--sub);
+  font-size: 1rem;
+  font-weight: 400;
+  transform: rotate(-0.8deg);
 }
 
 /* Horizontal card slider (Works / Projects / Aside) */
@@ -433,8 +511,8 @@ h3 {
   place-items: center;
   aspect-ratio: 4 / 3;
   background:
-    linear-gradient(135deg, rgba(45, 144, 98, 0.14), transparent 50%),
-    linear-gradient(315deg, rgba(240, 160, 112, 0.15), transparent 45%),
+    linear-gradient(135deg, rgba(21, 155, 79, 0.14), transparent 50%),
+    linear-gradient(315deg, rgba(232, 74, 155, 0.15), transparent 45%),
     var(--bg-alt);
   color: var(--text-muted);
   font-size: 0.82rem;
@@ -465,8 +543,8 @@ h3 {
 
 .launch-badge {
   border-radius: 999px;
-  background: rgba(240, 160, 112, 0.18);
-  color: #a85820;
+  background: rgba(232, 74, 155, 0.18);
+  color: #3a2a24;
   font-size: 0.75rem;
   font-weight: 700;
   padding: 3px 8px;
@@ -510,7 +588,7 @@ h3 {
 .modal-chips.chips span,
 .detail-chips.chips span {
   border-radius: 999px;
-  background: rgba(45, 144, 98, 0.1);
+  background: rgba(21, 155, 79, 0.1);
   color: var(--primary);
   font-size: var(--fs-xs);
   font-weight: 700;
@@ -543,6 +621,88 @@ h3 {
   color: white;
   font-weight: 800;
   font-size: 0.85rem;
+}
+
+.service-desc {
+  margin: 12px 0 0;
+  color: var(--text-muted);
+  font-size: var(--fs-sm);
+  line-height: 1.7;
+}
+
+/* ── Services: illustrated cards ─────────────────────── */
+.service-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 210px), 1fr));
+  gap: clamp(14px, 2vw, 22px);
+}
+
+.service-card {
+  position: relative;
+  border: 1.5px solid var(--text);
+  border-radius: var(--radius);
+  background: var(--card);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  padding-bottom: 18px;
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+
+/* alternate a tiny tilt so the row feels hand-placed */
+.service-card:nth-child(even) { transform: rotate(0.7deg); }
+.service-card:nth-child(odd)  { transform: rotate(-0.6deg); }
+
+.service-card:hover {
+  transform: translate(-3px, -3px) rotate(0deg);
+  box-shadow: var(--shadow-hover);
+}
+
+.service-figure {
+  background: var(--bg-alt);
+  padding: 18px 16px 12px;
+  border-bottom: 1.5px dashed var(--text);
+}
+
+.service-figure img {
+  display: block;
+  width: 100%;
+  height: 118px;
+  object-fit: contain;
+}
+
+.service-card h3 {
+  margin: 14px 18px 7px;
+  font-family: var(--font-hand);
+  font-weight: 400;
+  font-size: 1.12rem;
+  letter-spacing: 0;
+  color: var(--primary);
+}
+
+.service-card .service-desc {
+  margin: 0 18px;
+  font-size: var(--fs-sm);
+  line-height: 1.7;
+  color: var(--text);
+}
+
+#skills .language-panel {
+  margin-top: clamp(16px, 2.2vw, 22px);
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px 26px;
+}
+
+#skills .language-panel h3 {
+  margin: 0 8px 0 0;
+}
+
+#skills .language-row {
+  border: 0;
+  padding: 0;
+  gap: 8px;
+  font-size: 0.9rem;
 }
 
 .skill-card h4 {
@@ -642,15 +802,15 @@ h3 {
   padding-bottom: 0;
 }
 
-/* Connector line */
+/* Connector line — dashed, like a hand-ruled margin */
 .story-chapter::before {
   content: "";
   position: absolute;
   left: 81px;
   top: 10px;
   bottom: 0;
-  width: 2px;
-  background: var(--border);
+  width: 0;
+  border-left: 2px dashed var(--text);
 }
 
 .story-chapter:last-child::before {
@@ -661,28 +821,29 @@ h3 {
 .story-chapter::after {
   content: "";
   position: absolute;
-  left: 74px;
+  left: 73px;
   top: 5px;
-  width: 14px;
-  height: 14px;
+  width: 15px;
+  height: 15px;
   border-radius: 50%;
-  background: var(--border);
-  border: 3px solid var(--bg);
+  background: var(--bg);
+  border: 2px solid var(--text);
 }
 
 .story-chapter.highlight::after {
-  background: var(--primary);
+  background: var(--accent);
 }
 
 .chapter-period {
   display: block;
   padding-top: 2px;
   padding-right: 22px;
+  font-family: var(--font-hand);
   color: var(--primary);
-  font-weight: 800;
-  font-size: 0.82rem;
+  font-weight: 400;
+  font-size: 0.92rem;
   text-align: right;
-  line-height: 1.4;
+  line-height: 1.35;
 }
 
 .chapter-name {
@@ -784,7 +945,7 @@ h3 {
 .contact-links a:hover {
   border-color: var(--primary);
   color: var(--primary);
-  background: rgba(45, 144, 98, 0.06);
+  background: rgba(21, 155, 79, 0.06);
 }
 
 .work-card {
@@ -847,7 +1008,7 @@ h3 {
   position: fixed;
   inset: 0;
   z-index: 100;
-  background: rgba(28, 43, 36, 0.5);
+  background: rgba(30, 30, 30, 0.5);
   display: grid;
   place-items: center;
   padding: 24px;
@@ -998,8 +1159,8 @@ h3 {
   z-index: 200;
   overflow-y: auto;
   background:
-    radial-gradient(ellipse 90% 60% at 10% 0%, rgba(45, 144, 98, 0.12), transparent 60%),
-    radial-gradient(ellipse 80% 60% at 95% 100%, rgba(240, 160, 112, 0.12), transparent 60%),
+    radial-gradient(ellipse 90% 60% at 10% 0%, rgba(21, 155, 79, 0.12), transparent 60%),
+    radial-gradient(ellipse 80% 60% at 95% 100%, rgba(232, 74, 155, 0.12), transparent 60%),
     var(--bg);
   background-attachment: fixed;
   animation: fadeIn 0.2s ease;
@@ -1410,59 +1571,46 @@ h3 {
   }
 
   .skill-card {
-    display: grid;
-    grid-template-columns: 2.6rem 1fr;
-    column-gap: 14px;
-    padding: 13px 4px;
+    padding: 16px 4px;
     border-bottom: 1px solid var(--border);
   }
 
   .skill-icon {
-    grid-column: 1;
-    grid-row: 1 / 3;
     width: auto;
     height: auto;
     background: none;
     border-radius: 0;
-    margin-bottom: 0;
+    margin-bottom: 4px;
     color: var(--text-muted);
     font-size: 0.72rem;
     font-weight: 800;
-    display: flex;
-    align-items: center;
-    align-self: center;
+    place-items: start;
   }
 
   .skill-card h3 {
-    grid-column: 2;
-    grid-row: 1;
-    font-size: 0.9rem;
-    margin: 0 0 5px;
-    align-self: end;
+    font-size: 0.95rem;
+    margin: 0 0 6px;
   }
 
-  .skill-card .skill-tags,
-  .skill-card .compact-list {
-    grid-column: 2;
-    grid-row: 2;
+  .service-desc {
+    font-size: 0.84rem;
   }
 
-  .skill-card h4,
+  .skill-card h4 {
+    margin: 12px 0 6px;
+  }
+
   .skill-tags.outline,
-  .skill-tags.outline + .show-more-btn,
-  .skill-tags.solid + .show-more-btn {
+  .skill-tags.outline + .show-more-btn {
     display: none;
   }
 
-  .skill-tags.solid span:nth-child(n+5) { display: none; }
-
   .compact-list {
     padding-left: 14px;
-    font-size: 0.82rem;
+    font-size: 0.84rem;
   }
 
-  .compact-list li + li { margin-top: 3px; }
-  .compact-list li:nth-child(n+4) { display: none; }
+  .compact-list li + li { margin-top: 4px; }
 
   .language-panel {
     grid-column: 1;
@@ -1640,6 +1788,7 @@ h3 {
 
   .work-card,
   .skill-card,
+  .service-card,
   .language-panel,
   .contact-card {
     box-shadow: none;

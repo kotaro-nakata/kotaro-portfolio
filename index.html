@@ -7,8 +7,8 @@
     <meta name="description" content="Kotaro Nakata portfolio: engineering, space research, web development, entrepreneurship, and coaching.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Noto+Sans+JP:wght@400;500;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css?v=20260614-2">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Noto+Sans+JP:wght@400;500;700;800&family=Yusei+Magic&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css?v=zine-1">
   </head>
   <body>
     <header class="site-header">
@@ -17,7 +17,7 @@
         <div class="nav-links" id="primary-menu">
           <a href="#works">Works</a>
           <a href="#projects">Projects</a>
-          <a href="#skills">Skills</a>
+          <a href="#skills" data-ja="Services" data-en="Services">Services</a>
           <a href="#story">Story</a>
           <a href="#contact">Contact</a>
         </div>
@@ -77,49 +77,35 @@
       <section id="skills" class="section alt">
         <div class="container">
           <div class="section-heading simple-heading">
-            <h2 data-ja="Skills" data-en="Skills">Skills</h2>
+            <h2 data-ja="Services" data-en="Services">Services</h2>
+            <p class="heading-sub" data-ja="ご依頼いただけること" data-en="What I can do for you">ご依頼いただけること</p>
           </div>
-          <div class="skill-grid">
-            <article class="skill-card">
-              <div class="skill-icon">01</div>
-              <h3 data-ja="エンジニアリング・研究" data-en="Engineering & Research">エンジニアリング・研究</h3>
-              <h4 data-ja="できる" data-en="Strong">できる</h4>
-              <div class="skill-tags solid">
-                <span>Space Propulsion</span><span>Electrical Engineering</span><span>System Control</span><span>C / C++ / Python</span><span>Arduino</span><span>Raspberry Pi</span><span>CAD</span><span>Linux</span>
-              </div>
-              <h4 data-ja="知ってる" data-en="Familiar">知ってる</h4>
-              <div class="skill-tags outline">
-                <span>Vacuum Engineering</span><span>Tig Welding</span><span>Robotics</span><span>Fortran</span>
-              </div>
+          <div class="service-grid">
+            <article class="service-card">
+              <div class="service-figure"><img src="images/service-dev.svg" alt="" loading="lazy"></div>
+              <h3 data-ja="受託でのWeb・SaaS開発" data-en="Web & SaaS Development">受託でのWeb・SaaS開発</h3>
+              <p class="service-desc" data-ja="要件定義から実装・保守運用まで、一人でフルサイクル。約1週間でたたき台を出し、隔週で改善、納品後も運用します。" data-en="From requirements to build and maintenance — full-cycle, solo. A working draft in about a week, biweekly iterations, and ongoing upkeep after launch.">要件定義から実装・保守運用まで、一人でフルサイクル。約1週間でたたき台を出し、隔週で改善、納品後も運用します。</p>
             </article>
-            <article class="skill-card">
-              <div class="skill-icon">02</div>
-              <h3 data-ja="Web開発・ソフトウェア" data-en="Web Development & Software">Web開発・ソフトウェア</h3>
-              <h4 data-ja="できる" data-en="Strong">できる</h4>
-              <div class="skill-tags solid">
-                <span>TypeScript</span><span>JavaScript</span><span>React</span><span>Next.js</span><span>Python</span><span>Node.js</span><span>PostgreSQL</span><span>Tailwind CSS</span><span>GitHub</span><span>Docker</span><span>Vercel</span><span>Supabase</span>
-              </div>
-              <h4 data-ja="知ってる" data-en="Familiar">知ってる</h4>
-              <div class="skill-tags outline">
-                <span>AWS</span><span>Prisma</span><span>Framer Motion</span><span>Shopify Liquid</span>
-              </div>
+            <article class="service-card">
+              <div class="service-figure"><img src="images/service-japan.svg" alt="" loading="lazy"></div>
+              <h3 data-ja="海外プロダクトの日本展開" data-en="Japan Market Entry">海外プロダクトの日本展開</h3>
+              <p class="service-desc" data-ja="英語での本社交渉、資料・マニュアルのローカライズ、PSE等の法規制対応、販路開拓まで。技術がわかる人間が事業開発を担います。" data-en="HQ negotiation in English, localization, regulatory work (e.g. PSE), and channel development — business development by someone who gets the tech.">英語での本社交渉、資料・マニュアルのローカライズ、PSE等の法規制対応、販路開拓まで。技術がわかる人間が事業開発を担います。</p>
             </article>
-            <article class="skill-card">
-              <div class="skill-icon">03</div>
-              <h3 data-ja="リーダーシップ・コミュニケーション" data-en="Leadership & Communication">リーダーシップ・コミュニケーション</h3>
-              <ul class="compact-list">
-                <li data-ja="要件定義から保守運用までのフルサイクル対応" data-en="Full-cycle delivery from requirements to maintenance">要件定義から保守運用までのフルサイクル対応</li>
-                <li data-ja="英語での学会発表、NPO運営、クライアントワーク" data-en="English for conferences, NPO operations, and client work">英語での学会発表、NPO運営、クライアントワーク</li>
-                <li data-ja="コミュニティ運営 50名から600名" data-en="Community growth from 50 to 600 members">コミュニティ運営 50名から600名</li>
-                <li data-ja="教育・コーチング: テニス、プログラミング、はんだ付け" data-en="Education and coaching: tennis, programming, soldering">教育・コーチング: テニス、プログラミング、はんだ付け</li>
-                <li data-ja="国際経験: フィンランド、ニュージーランド、インドネシア、日本" data-en="International experience: Finland, New Zealand, Indonesia, Japan">国際経験: フィンランド、ニュージーランド、インドネシア、日本</li>
-              </ul>
+            <article class="service-card">
+              <div class="service-figure"><img src="images/service-hardware.svg" alt="" loading="lazy"></div>
+              <h3 data-ja="ハードウェア・IoT連携システム" data-en="Hardware & IoT Systems">ハードウェア・IoT連携システム</h3>
+              <p class="service-desc" data-ja="ロボット・センサー・機器とWebをつなぎ、リアルタイム監視や遠隔操作を実現。宇宙推進の研究開発出身で、ハード側の事情まで理解して設計します。" data-en="Connecting robots, sensors and devices to the web for real-time monitoring and remote control — designed with hardware constraints in mind, from a space-propulsion R&D background.">ロボット・センサー・機器とWebをつなぎ、リアルタイム監視や遠隔操作を実現。宇宙推進の研究開発出身で、ハード側の事情まで理解して設計します。</p>
             </article>
-            <div class="language-panel">
-              <h3 data-ja="Language" data-en="Language">Language</h3>
-              <div class="language-row"><span data-ja="日本語" data-en="Japanese">日本語</span><strong>Native</strong></div>
-              <div class="language-row"><span data-ja="英語" data-en="English">英語</span><strong data-ja="Business / Academic" data-en="Business / Academic">Business / Academic</strong></div>
-            </div>
+            <article class="service-card">
+              <div class="service-figure"><img src="images/service-ai.svg" alt="" loading="lazy"></div>
+              <h3 data-ja="EC構築・AI活用の運用設計" data-en="E-Commerce & AI Operations">EC構築・AI活用の運用設計</h3>
+              <p class="service-desc" data-ja="Shopify等のEC構築に加え、「言葉で更新できる」LLMベースの運用基盤づくり。クライアント自身が日々回せる仕組みまで設計します。" data-en="E-commerce builds (e.g. Shopify) plus LLM-based &quot;update-by-words&quot; operations — designed so the client can run it day to day.">Shopify等のEC構築に加え、「言葉で更新できる」LLMベースの運用基盤づくり。クライアント自身が日々回せる仕組みまで設計します。</p>
+            </article>
+          </div>
+          <div class="language-panel">
+            <h3 data-ja="Language" data-en="Language">Language</h3>
+            <div class="language-row"><span data-ja="日本語" data-en="Japanese">日本語</span><strong>Native</strong></div>
+            <div class="language-row"><span data-ja="英語" data-en="English">英語</span><strong data-ja="Business / Academic" data-en="Business / Academic">Business / Academic</strong></div>
           </div>
         </div>
       </section>
@@ -131,7 +117,7 @@
           </div>
           <div class="story-chapters">
 
-            <div class="story-chapter">
+            <div class="story-chapter highlight">
               <span class="chapter-period">2017–2021</span>
               <div class="chapter-body">
                 <h4 class="chapter-name" data-ja="神戸高専" data-en="Kobe KOSEN">神戸高専</h4>
@@ -194,8 +180,8 @@
         <div class="container contact-card">
           <div>
             <p class="eyebrow" data-ja="Contact" data-en="Contact">Contact</p>
-            <h2 data-ja="気軽に話しかけてください。" data-en="Feel free to reach out.">気軽に話しかけてください。</h2>
-            <p data-ja="プロジェクトのご相談、コラボレーション、ちょっとした質問でも、お気軽にどうぞ。" data-en="For project inquiries, collaborations, or just a chat — feel free to reach out.">プロジェクトのご相談、コラボレーション、ちょっとした質問でも、お気軽にどうぞ。</p>
+            <h2 data-ja="気軽に話しましょう。" data-en="Feel free to reach out.">気軽に話しましょう。</h2>
+            <p data-ja="受託開発、業務委託のご相談、コラボレーション、ちょっとした質問でも、お気軽にどうぞ。" data-en="For project inquiries, collaborations, or just a chat — feel free to reach out.">プロジェクトのご相談、コラボレーション、ちょっとした質問でも、お気軽にどうぞ。</p>
             <div class="contact-links">
               <a href="mailto:kuriru.ksr@gmail.com">kuriru.ksr@gmail.com</a>
               <a href="https://github.com/kotaro-nakata">GitHub</a>
